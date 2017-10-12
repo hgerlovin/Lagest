@@ -1,0 +1,17 @@
+Package: lagest
+Title: Effective Exposure: Estimating Lag in Lagged Effects
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Hanna", "Gerlovin", "hgerlovin@gmail.com", role = c("aut", "cre"))
+    )
+Encoding: UTF-8
+Description: Hanna Gerlovin Dissertation 
+URL: https://github.com/hgerlovin/Lagest.git
+Depends: R (>= 3.2.3)
+Imports: speedglm, survival, reshape, plyr, dplyr, boot
+Suggests: rmarkdown, knitr
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1
+NeedsCompilation: yes
+Author: Hanna Gerlovin [aut, cre],
+Maintainer: Hanna Gerlovin <hgerlovin@gmail.com>
