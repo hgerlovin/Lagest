@@ -6,25 +6,85 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
+library(knitr)
 knitr::opts_chunk$set(echo = TRUE)
+library(speedglm)
+library(survival)
+library(reshape)
+library(plyr)
+library(dplyr)
+library(boot)
+options(scipen=9)
 ```
 
-## R Markdown
+This is an R Markdown document for the calculation of Effective Exposure Concentration Vectors. Git repository: <https://github.com/hgerlovin/Lagest.git>.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+#### C1fn.h
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+* Reads in dose ($d$), time since start ($s$), time since end ($e$), and the single-parameter half-life ($h$)
+* Calculates concentration for inputs, returns a numeric value for $E_{itr}(h)$, which is the relative effect for exposure/regimen $r$ at time $t$ for subject $i$.
 
-```{r cars}
-summary(cars)
+```{r C1fn.h, echo=TRUE, tidy=TRUE}
+C1fn.h=function(d,s,e,h){
+  return(d*(exp(-log(2)*e/h)-exp(-log(2)*s/h)))
+}
 ```
 
-## Including Plots
+#### C1.new
 
-You can also embed plots, for example:
+* Reads in dose, start and end times, and two half-life values - one in, one out
+* Calculates concentration for inputs
+* Allows for two differing half-lives
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r C1.new, echo=TRUE, tidy=TRUE}
+C1.new<-function(d,s,e,h1,h2){
+  return(d*(1-exp(-log(2)*(s-e)/h1))*exp(-log(2)*e/h2))
+}
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+#### C1fun.h
+
+* Reads in dataset and input half-life
+* Uses lapply  and C1fn.h to calculate concentration for each observation for each regimen given in the dataset
+* Sums each dose for each subject at each time point
+* Outputs vector of concentrations for all observations in the dataset (should match the event vector length)
+
+```{r C1fun.h, echo=TRUE, tidy=TRUE}
+C1fun.h=function(thalf=NULL,dat){
+  Ntimes=length(grep("^Dose",names(dat)))
+  Snames=grep("^tStart",names(dat))
+  Enames=grep("^tEnd",names(dat))
+  Dnames=grep("^Dose",names(dat))
+  
+  C1=lapply(1:Ntimes,function(q) C1fn.h(d=dat[,Dnames[q]],s=dat[,Snames[q]],e=dat[,Enames[q]],h=thalf))
+  Conc=Reduce("+",lapply(C1, function(s) replace(s, is.na(s),0)))
+  return(Conc)
+}
+```
+
+#### C1fun.2h
+
+* Reads in dataset and input half-life
+* Uses lapply and C1.new to calculate concentration for each observation for each regimen given in the dataset
+* Sums each dose for each subject at each time point
+* Outputs vector of concentrations for all observations in the dataset (should match the event vector length)
+
+```{r C1fun.2h, echo=TRUE, tidy=TRUE}
+C1fun.2h=function(thalf=NULL,dat){
+  out<-list()
+  if(length(thalf)==1) {
+      out$footnote<-"Assuming the same half-life for incline and decline"
+      thalf<-c(thalf,thalf)
+  }
+  if(length(thalf)>2) return(print("ERROR: Only one half per direction allowed"))
+  
+  Ntimes<-length(grep("^Dose",names(dat)))
+  Snames<-grep("^tStart",names(dat))
+  Enames<-grep("^tEnd",names(dat))
+  Dnames<-grep("^Dose",names(dat))
+  
+  C1<-lapply(1:Ntimes,function(q) C1.new(d=dat[,Dnames[q]],s=dat[,Snames[q]],e=dat[,Enames[q]],h1=thalf[1],h2=thalf[2]))
+  out$Conc<-Reduce("+",lapply(C1, function(s) replace(s, is.na(s),0)))
+  return(out)
+}
+```
