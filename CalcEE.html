@@ -138,9 +138,8 @@ $(document).ready(function () {
 <div id="c1.new" class="section level4">
 <h4>C1.new</h4>
 <ul>
-<li>Reads in dose, start and end times, and two half-life values - one in, one out</li>
-<li>Calculates concentration for inputs</li>
-<li>Allows for two differing half-lives</li>
+<li>Reads in dose (<span class="math inline">\(d\)</span>), time since start (<span class="math inline">\(s\)</span>), time since end (<span class="math inline">\(e\)</span>), and two half-life values - one in/incline/growth (<span class="math inline">\(h_{1}\)</span>), one out/decline/decay (<span class="math inline">\(h_{2}\)</span>)</li>
+<li>Calculates concentration for inputs, returns a numeric value for <span class="math inline">\(E_{itr}(h_{1},h_{2})\)</span>, which is the relative effect for exposure/regimen <span class="math inline">\(r\)</span> at time <span class="math inline">\(t\)</span> for subject <span class="math inline">\(i\)</span>.</li>
 </ul>
 <pre class="r"><code>C1.new &lt;- function(d, s, e, h1, h2) {
     return(d * (1 - exp(-log(2) * (s - e)/h1)) * exp(-log(2) * e/h2))

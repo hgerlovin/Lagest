@@ -32,9 +32,8 @@ C1fn.h=function(d,s,e,h){
 
 #### C1.new
 
-* Reads in dose, start and end times, and two half-life values - one in, one out
-* Calculates concentration for inputs
-* Allows for two differing half-lives
+* Reads in dose ($d$), time since start ($s$), time since end ($e$), and two half-life values - one in/incline/growth ($h_{1}$), one out/decline/decay ($h_{2}$)
+* Calculates concentration for inputs, returns a numeric value for $E_{itr}(h_{1},h_{2})$, which is the relative effect for exposure/regimen $r$ at time $t$ for subject $i$.
 
 ```{r C1.new, echo=TRUE, tidy=TRUE}
 C1.new<-function(d,s,e,h1,h2){
