@@ -1,5 +1,5 @@
 Package: lagest
-Title: Effective Exposure: Estimating Lag in Lagged Effects
+Title: Effective Exposure: Lag-Parameterized Exponential Models for Exposure Risk
 Version: 0.0.0.9000
 Authors@R: c(
     person("Hanna", "Gerlovin", "hgerlovin@gmail.com", role = c("aut", "cre"))
