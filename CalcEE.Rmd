@@ -15,6 +15,7 @@ library(plyr)
 library(dplyr)
 library(boot)
 options(scipen=9)
+knitr::read_chunk("~/R/Inner_07SEP2017.R")
 ```
 
 This is an R Markdown document for the calculation of Effective Exposure Concentration Vectors. Git repository: <https://github.com/hgerlovin/Lagest.git>.
@@ -25,10 +26,8 @@ This is an R Markdown document for the calculation of Effective Exposure Concent
 * Calculates concentration for inputs, returns a numeric value for $E_{itr}(h)$, which is the relative effect for exposure/regimen $r$ at time $t$ for subject $i$.
 
 ```{r C1fn.h, echo=TRUE, tidy=TRUE}
-C1fn.h=function(d,s,e,h){
-  return(d*(exp(-log(2)*e/h)-exp(-log(2)*s/h)))
-}
 ```
+
 
 #### C1.new
 

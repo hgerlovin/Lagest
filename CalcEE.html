@@ -131,9 +131,7 @@ $(document).ready(function () {
 <li>Reads in dose (<span class="math inline">\(d\)</span>), time since start (<span class="math inline">\(s\)</span>), time since end (<span class="math inline">\(e\)</span>), and the single-parameter half-life (<span class="math inline">\(h\)</span>)</li>
 <li>Calculates concentration for inputs, returns a numeric value for <span class="math inline">\(E_{itr}(h)\)</span>, which is the relative effect for exposure/regimen <span class="math inline">\(r\)</span> at time <span class="math inline">\(t\)</span> for subject <span class="math inline">\(i\)</span>.</li>
 </ul>
-<pre class="r"><code>C1fn.h = function(d, s, e, h) {
-    return(d * (exp(-log(2) * e/h) - exp(-log(2) * s/h)))
-}</code></pre>
+<pre class="r"><code>knitr::read_chunk('R/Inner_07SEP2017.R')</code></pre>
 </div>
 <div id="c1.new" class="section level4">
 <h4>C1.new</h4>
@@ -141,8 +139,8 @@ $(document).ready(function () {
 <li>Reads in dose (<span class="math inline">\(d\)</span>), time since start (<span class="math inline">\(s\)</span>), time since end (<span class="math inline">\(e\)</span>), and two half-life values - one in/incline/growth (<span class="math inline">\(h_{1}\)</span>), one out/decline/decay (<span class="math inline">\(h_{2}\)</span>)</li>
 <li>Calculates concentration for inputs, returns a numeric value for <span class="math inline">\(E_{itr}(h_{1},h_{2})\)</span>, which is the relative effect for exposure/regimen <span class="math inline">\(r\)</span> at time <span class="math inline">\(t\)</span> for subject <span class="math inline">\(i\)</span>.</li>
 </ul>
-<pre class="r"><code>C1.new &lt;- function(d, s, e, h1, h2) {
-    return(d * (1 - exp(-log(2) * (s - e)/h1)) * exp(-log(2) * e/h2))
+<pre class="r"><code>C1.new&lt;-function(d,s,e,h1,h2){
+  return(d*(1-exp(-log(2)*(s-e)/h1))*exp(-log(2)*e/h2))
 }</code></pre>
 </div>
 <div id="c1fun.h" class="section level4">
@@ -153,16 +151,15 @@ $(document).ready(function () {
 <li>Sums each dose for each subject at each time point</li>
 <li>Outputs vector of concentrations for all observations in the dataset (should match the event vector length)</li>
 </ul>
-<pre class="r"><code>C1fun.h = function(thalf = NULL, dat) {
-    Ntimes = length(grep(&quot;^Dose&quot;, names(dat)))
-    Snames = grep(&quot;^tStart&quot;, names(dat))
-    Enames = grep(&quot;^tEnd&quot;, names(dat))
-    Dnames = grep(&quot;^Dose&quot;, names(dat))
-    
-    C1 = lapply(1:Ntimes, function(q) C1fn.h(d = dat[, Dnames[q]], s = dat[, 
-        Snames[q]], e = dat[, Enames[q]], h = thalf))
-    Conc = Reduce(&quot;+&quot;, lapply(C1, function(s) replace(s, is.na(s), 0)))
-    return(Conc)
+<pre class="r"><code>C1fun.h=function(thalf=NULL,dat){
+  Ntimes=length(grep(&quot;^Dose&quot;,names(dat)))
+  Snames=grep(&quot;^tStart&quot;,names(dat))
+  Enames=grep(&quot;^tEnd&quot;,names(dat))
+  Dnames=grep(&quot;^Dose&quot;,names(dat))
+  
+  C1=lapply(1:Ntimes,function(q) C1fn.h(d=dat[,Dnames[q]],s=dat[,Snames[q]],e=dat[,Enames[q]],h=thalf))
+  Conc=Reduce(&quot;+&quot;,lapply(C1, function(s) replace(s, is.na(s),0)))
+  return(Conc)
 }</code></pre>
 </div>
 <div id="c1fun.2h" class="section level4">
@@ -173,24 +170,22 @@ $(document).ready(function () {
 <li>Sums each dose for each subject at each time point</li>
 <li>Outputs vector of concentrations for all observations in the dataset (should match the event vector length)</li>
 </ul>
-<pre class="r"><code>C1fun.2h = function(thalf = NULL, dat) {
-    out &lt;- list()
-    if (length(thalf) == 1) {
-        out$footnote &lt;- &quot;Assuming the same half-life for incline and decline&quot;
-        thalf &lt;- c(thalf, thalf)
-    }
-    if (length(thalf) &gt; 2) 
-        return(print(&quot;ERROR: Only one half per direction allowed&quot;))
-    
-    Ntimes &lt;- length(grep(&quot;^Dose&quot;, names(dat)))
-    Snames &lt;- grep(&quot;^tStart&quot;, names(dat))
-    Enames &lt;- grep(&quot;^tEnd&quot;, names(dat))
-    Dnames &lt;- grep(&quot;^Dose&quot;, names(dat))
-    
-    C1 &lt;- lapply(1:Ntimes, function(q) C1.new(d = dat[, Dnames[q]], s = dat[, 
-        Snames[q]], e = dat[, Enames[q]], h1 = thalf[1], h2 = thalf[2]))
-    out$Conc &lt;- Reduce(&quot;+&quot;, lapply(C1, function(s) replace(s, is.na(s), 0)))
-    return(out)
+<pre class="r"><code>C1fun.2h=function(thalf=NULL,dat){
+  out&lt;-list()
+  if(length(thalf)==1) {
+      out$footnote&lt;-&quot;Assuming the same half-life for incline and decline&quot;
+      thalf&lt;-c(thalf,thalf)
+  }
+  if(length(thalf)&gt;2) return(print(&quot;ERROR: Only one half per direction allowed&quot;))
+  
+  Ntimes&lt;-length(grep(&quot;^Dose&quot;,names(dat)))
+  Snames&lt;-grep(&quot;^tStart&quot;,names(dat))
+  Enames&lt;-grep(&quot;^tEnd&quot;,names(dat))
+  Dnames&lt;-grep(&quot;^Dose&quot;,names(dat))
+  
+  C1&lt;-lapply(1:Ntimes,function(q) C1.new(d=dat[,Dnames[q]],s=dat[,Snames[q]],e=dat[,Enames[q]],h1=thalf[1],h2=thalf[2]))
+  out$Conc&lt;-Reduce(&quot;+&quot;,lapply(C1, function(s) replace(s, is.na(s),0)))
+  return(out)
 }</code></pre>
 </div>
 
