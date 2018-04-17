@@ -5,6 +5,7 @@
 #' @param s time since start tStartX
 #' @param e time since end tEndX
 #' @param h half-life parameter
+#' @return Outputs a numeric vector of values for concentration that is equal in length to the number of rows/observations in the dataframe \code{dat}.
 #' @export
 #' @examples
 #' C1fn.h()

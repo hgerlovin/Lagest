@@ -15,11 +15,11 @@
 #' 
 #' \code{tEnd1}...\code{tEndX}  Columns indicating the time since discontinuing the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to start of regimen and while regimen is "on". Increments parallel to time following discontinuation.
 #' 
-#' \code{time} & Column for the study time at the observation.
+#' \code{time} Column for the study time at the observation.
 #' 
-#' \code{currD} & Column with value for the current regimen dose for the subject-time-specific observation.
+#' \code{currD} Column with value for the current regimen dose for the subject-time-specific observation.
 #' 
-#' \code{everD} &	Column indicating whether any exposure has occurred as of (prior to and including) the subject-time-specific observation.
+#' \code{everD} Column indicating whether any exposure has occurred as of (prior to and including) the subject-time-specific observation.
 #' @export
 #' @examples
 #' makeDVecs()
