@@ -22,7 +22,18 @@ makeDVecs(struct = 0, Cp.vec = c(1), ts.vec = c(0), tf.vec = c(900),
 }
 \value{
 Outputs dataframe of study intervals with corresponding/useable dose regimen vectors, current dose vector.
+
 \code{Dose1}...\code{DoseX} Columns indicating the overall doses for each regimen. Repeated throughout for computational ease.
+
+\code{tStart1}...\code{tStartX} Columns indicating the time since starting the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to initiation and increments parallel with time following initiation.
+
+\code{tEnd1}...\code{tEndX}  Columns indicating the time since discontinuing the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to start of regimen and while regimen is "on". Increments parallel to time following discontinuation.
+
+\code{time} & Column for the study time at the observation.
+
+\code{currD} & Column with value for the current regimen dose for the subject-time-specific observation.
+
+\code{everD} &	Column indicating whether any exposure has occurred as of (prior to and including) the subject-time-specific observation.
 }
 \description{
 Reads in dose, start and end times, and half-life. Calculates concentration for inputs.
