@@ -11,24 +11,27 @@
 #' @param tf.vec Vector of end times for the regimens. Default assumes the exposure continues through time=900. When \code{studyt} is not specified, the last specified end-time (last regimen) is used as the total study time.
 #' @param intlen Increment time to use. Default is 1 time unit.
 #' @param studyt Total study follow-up time. Default is \code{NULL} and will pull the last regimen stop time.
+#' 
 #' @return Outputs dataframe of study intervals with corresponding/useable dose regimen vectors, current dose vector.
 #' 
 #' @param \code{Dose1}...\code{DoseX}	Columns indicating the overall doses for each regimen. Repeated throughout for computational ease. 
-#' \code{tStart1}...\code{tStartX}	Columns indicating the time since starting the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to initiation and increments parallel with time following initiation.
-#' \code{tEnd1}...\code{tEndX}	Columns indicating the time since discontinuing the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to start of regimen and while regimen is "on". Increments parallel to time following discontinuation.
-#'\code{time}	Column for the study time at the observation.
-#' \code{currD}	Column with value for the current regimen dose for the subject-time-specific observation.
-#' \code{everD}	Column indicating whether any exposure has occurred as of (prior to and including) the subject-time-specific observation.
-#' \code{currC}	Column with "true" effective exposure at the given time.
-#' \code{prob}	Column with time-specific conditional logistic probability of event. This is the value used for assigning events during data generation - compared to random draw from Unif(0,1).
-#' \code{half}	Input half-life value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
-#' \code{OR}	Input Odds Ratio value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
-#' \code{baser}	Input baseline prevalence value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
-#' \code{st.dose}	Input standard dose value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
-#' \code{intlen}	Input time increment value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
-
+#' @param \code{tStart1}...\code{tStartX}	Columns indicating the time since starting the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to initiation and increments parallel with time following initiation.
+#' @param \code{tEnd1}...\code{tEndX}	Columns indicating the time since discontinuing the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to start of regimen and while regimen is "on". Increments parallel to time following discontinuation.
+#' @param \code{time}	Column for the study time at the observation.
+#' @param \code{currD}	Column with value for the current regimen dose for the subject-time-specific observation.
+#' @param \code{everD}	Column indicating whether any exposure has occurred as of (prior to and including) the subject-time-specific observation.
+#' @param \code{currC}	Column with "true" effective exposure at the given time.
+#' @param \code{prob}	Column with time-specific conditional logistic probability of event. This is the value used for assigning events during data generation - compared to random draw from Unif(0,1).
+#' @param \code{half}	Input half-life value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
+#' @param \code{OR}	Input Odds Ratio value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
+#' @param \code{baser}	Input baseline prevalence value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
+#' @param \code{st.dose}	Input standard dose value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
+#' @param \code{intlen}	Input time increment value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
+#' 
 #' @export
-#' @examples
+#' 
+#' @example 
+#' 
 #' ScenSpec()
 
 
@@ -52,8 +55,6 @@ ScenSpec=function(half=90,st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec
   temp
 }
 
-#Default Cp.vec, ts.vec, tf.vec, intlen, studyt, and structure already in "makeDVecs" function
-#Similar to ScenSpec(), but here you can include different half-life specs for incline vs. decline
 ScenSpec2=function(half=c(50,100),st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec=c(0),tf.vec=c(900),intlen=1,studyt=NULL) {
   
   if(length(half)==1) {
