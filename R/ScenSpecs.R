@@ -34,7 +34,7 @@
 #' ScenSpec()
 
 
-ScenSpec=function(half=90,st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec=c(0),tf.vec=c(900),intlen=1,studyt=NULL) {
+ScenSpec<-function(half=90,st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec=c(0),tf.vec=c(900),intlen=1,studyt=NULL) {
   
   
   if(is.null(studyt)) studyt=max(tf.vec) #set study length equal to total follow-up time if not explicitly defined
@@ -57,7 +57,7 @@ ScenSpec=function(half=90,st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec
 #' @describeIn ScenSpec Generates an TPEE trajectory based on pre-specified inputs.
 #' @export
 
-ScenSpec2=function(half=c(50,100),st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec=c(0),tf.vec=c(900),intlen=1,studyt=NULL) {
+ScenSpec2<-function(half=c(50,100),st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec=c(0),tf.vec=c(900),intlen=1,studyt=NULL) {
   
   if(length(half)==1) {
     print("Assuming the same half-life for incline and decline")

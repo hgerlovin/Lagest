@@ -2,11 +2,16 @@
 % Please edit documentation in R/ScenSpecs.R
 \name{ScenSpec}
 \alias{ScenSpec}
-\title{Simplified version of constructing dose regimen vectors.}
+\alias{ScenSpec2}
+\title{OPEE/TPEE dataset creation}
 \usage{
 ScenSpec(half = 90, st.dose = 1, baser = 0.1, OR = 1.5, struct = 0,
   Cp.vec = c(1), ts.vec = c(0), tf.vec = c(900), intlen = 1,
   studyt = NULL)
+
+ScenSpec2(half = c(50, 100), st.dose = 1, baser = 0.1, OR = 1.5,
+  struct = 0, Cp.vec = c(1), ts.vec = c(0), tf.vec = c(900),
+  intlen = 1, studyt = NULL)
 }
 \arguments{
 \item{half}{One-parameter half-life for simulating the relative concentration/effective exposure, currC. Default assumes 90 time unit half-life.}
@@ -59,5 +64,10 @@ ScenSpec(half = 90, st.dose = 1, baser = 0.1, OR = 1.5, struct = 0,
 Outputs dataframe of study intervals with corresponding/useable dose regimen vectors, current dose vector.
 }
 \description{
-Reads in dose, start and end times, and half-life. Calculates concentration for inputs.
+Generates an OPEE trajectory based on pre-specified inputs. Output dataframe can be used in DatScen and MultiScen.
 }
+\section{Functions}{
+\itemize{
+\item \code{ScenSpec2}: Generates an TPEE trajectory based on pre-specified inputs.
+}}
+

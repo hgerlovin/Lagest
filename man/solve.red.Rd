@@ -4,7 +4,7 @@
 \alias{solve.red}
 \title{Time to reduction in excess hazard}
 \usage{
-solve.red(beta, s.val, e.val, half.in, half.out)
+\method{solve}{red}(beta, s.val, e.val, half.in, half.out)
 }
 \description{
 Calculates the time to \% reduction based on initial and end-point hazard ratios
