@@ -34,8 +34,6 @@ ScenSpec2(half = c(50, 100), st.dose = 1, baser = 0.1, OR = 1.5,
 
 \item{studyt}{Total study follow-up time. Default is \code{NULL} and will pull the last regimen stop time.}
 
-\item{\code{Dose1}...\code{DoseX}}{Columns indicating the overall doses for each regimen. Repeated throughout for computational ease.}
-
 \item{\code{tStart1}...\code{tStartX}}{Columns indicating the time since starting the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to initiation and increments parallel with time following initiation.}
 
 \item{\code{tEnd1}...\code{tEndX}}{Columns indicating the time since discontinuing the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to start of regimen and while regimen is "on". Increments parallel to time following discontinuation.}
@@ -62,6 +60,8 @@ ScenSpec2(half = c(50, 100), st.dose = 1, baser = 0.1, OR = 1.5,
 }
 \value{
 Dataframe with time-incremented observations/rows. Columns include the input parameter values (half, OR, baser, st.dose, intlen), values for time, currD, everD, and values for the true effective exposure (currC) and probability of event (prob). Additionally, three columns per regimen reflect the exposure-specific dose, time since start, and time since end: DoseX, tStartX, tEndX.
+
+@param \code{Dose1}...\code{DoseX}	Columns indicating the overall doses for each regimen. Repeated throughout for computational ease.
 }
 \description{
 Generates an OPEE trajectory based on pre-specified inputs. Output dataframe can be used in DatScen and MultiScen.
