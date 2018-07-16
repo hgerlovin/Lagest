@@ -4,11 +4,12 @@
 \alias{solve.red}
 \title{Time to reduction in excess hazard}
 \usage{
-\method{solve}{red}(beta, s.val, e.val, half.in, half.out)
+solve.red(beta, s.val, e.val, half.in, half.out)
 }
 \description{
-Calculates the time to % reduction based on initial and end-point hazard ratios
+Calculates the time to \% reduction based on initial and end-point hazard ratios
 }
 \examples{
+
 solve.red(beta=log(2.63),s.val=6.5447956,e.val=2.5582798,half.in=5.85,half.out=5.85)
 }

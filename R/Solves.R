@@ -52,9 +52,11 @@ solve.time<-function(beta,D,half.in,half.out,time.in,reduct){
 
 #' Time to reduction in excess hazard
 #'
-#' Calculates the time to % reduction based on initial and end-point hazard ratios
+#' Calculates the time to \% reduction based on initial and end-point hazard ratios
+#' 
 #' @export
 #' @examples
+#' 
 #' solve.red(beta=log(2.63),s.val=6.5447956,e.val=2.5582798,half.in=5.85,half.out=5.85)
 
 solve.red<-function(beta,s.val,e.val,half.in,half.out){
