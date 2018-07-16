@@ -48,3 +48,24 @@ solve.time<-function(beta,D,half.in,half.out,time.in,reduct){
   t<-lnr/(-log(2)/half.out) # divide by the out parameter
   return(c(start.risk=s.val1,start.relrisk=s.val,time.needed=t,end.risk=e.val1,end.relrisk=e.val,relrisk.red=reduct,risk.red=risk.red,startEE=sEE,endEE=endEE))
 }
+
+
+#' Time to reduction in excess hazard
+#'
+#' Calculates the time to % reduction based on initial and end-point hazard ratios
+#' @export
+#' @examples
+#' solve.red(beta=log(2.63),s.val=6.5447956,e.val=2.5582798,half.in=5.85,half.out=5.85)
+
+solve.red<-function(beta,s.val,e.val,half.in,half.out){
+  s.val1<-log(s.val) # determine the Risk starting point
+  sEE<-s.val1/beta
+  e.val1<-log(e.val) # end risk
+  endEE<-e.val1/beta
+  reduct<-abs(s.val-e.val)/(s.val-1) # determine percent reduction of the excess risk
+  risk.red<-abs(s.val1-e.val1)/s.val1
+  ratiov<-e.val1/s.val1 # determine the ratio on the EE scale
+  lnr<-log(ratiov) # prepare to solve for t
+  t<-lnr/(-log(2)/half.out) # divide by the out parameter
+  return(c(start.risk=s.val1,start.relrisk=s.val,time.needed=t,end.risk=e.val1,end.relrisk=e.val,relrisk.red=reduct,risk.red=risk.red,startEE=sEE,endEE=endEE))
+}
