@@ -5,9 +5,9 @@
 \alias{solve.red}
 \title{Time to reduction in excess hazard}
 \usage{
-solve.time(beta, D, half.in, half.out, time.in, reduct)
+\method{solve}{time}(beta, D, half.in, half.out, time.in, reduct)
 
-solve.red(beta, s.val, e.val, half.in, half.out)
+\method{solve}{red}(beta, s.val, e.val, half.in, half.out)
 }
 \arguments{
 \item{beta}{Effect size coefficient (beta) from the model fitting results.}
@@ -21,6 +21,10 @@ solve.red(beta, s.val, e.val, half.in, half.out)
 \item{time.in}{Amount of time exposed prior to discontinuation. Value should exceed 1.}
 
 \item{reduct}{Desired excess hazard reduction. For example, to determine the time to 50\% reduction in the hazard ratio for a specific individual use \code{reduct=0.5}.}
+
+\item{s.val}{Starting hazard ratio value for \code{solve.red()} function.}
+
+\item{e.val}{End-point hazard ratio value for \code{solve.red()} function.}
 }
 \value{
 Returns values for the estimated starting (time=0 at discontinuation) hazard ratio (HR), starting risk or log(HR), ending HR and log(HR), time required to return to the reduced HR, and the relative proportion of reduction from start to end time on both HR and log(HR) scales.
@@ -37,22 +41,21 @@ Returns values for the estimated starting (time=0 at discontinuation) hazard rat
 }
 }
 \description{
-Calculates the time to \% reduction in the excess hazard following discontinuation of an exposure.
+\code{solve.time} Calculates the time to \% reduction in the excess hazard following discontinuation of an exposure. \code{solve.red} Determines the time to change from a starting hazard ratio to an ending hazard ratio, given half-lives and plateau of effective exposure.
 }
-\section{Functions}{
-\itemize{
-\item \code{solve.red}: Determines time to reduction with given start and stop hazard ratios
-}}
-
 \examples{
 
-## Calculate the time to 50\\\% reduction in the HR for a 2 packs/day smoker of 30-years. Final model being used comes from results in Chapter 4 (OPEE Packs/Day Dosing in Full BWHS Sample).
+## Calculate the time to 50\% reduction in the HR for a 2 packs/day smoker of 30-years. 
+# Final model being used comes from results in Chapter 4 (OPEE Packs/Day Dosing in Full BWHS Sample).
 
 solve.time(beta=log(2.63), D=2, half.in=5.85, half.out=5.85, time.in=30, reduct=0.5)
 
-## Calculate the time to 50\\\% reduction in the HR for a 1 pack/day smoker of 30-years. Final model being used comes from results in Chapter 4 (OPEE Packs/Day Dosing in Full BWHS Sample).
+## Calculate the time to 50\% reduction in the HR for a 1 pack/day smoker of 30-years. 
+# Final model being used comes from results in Chapter 4 (OPEE Packs/Day Dosing in Full BWHS Sample).
 
 solve.time(beta=log(2.63), D=1, half.in=5.85, half.out=5.85, time.in=30, reduct=0.5)
 
-solve.red(beta=log(2.63),s.val=6.5447956,e.val=2.5582798,half.in=5.85,half.out=5.85)
+## Calculate the time to change from HR of 6.5 to 2.5, with given OPEE half-life of 5.85 years
+# for an effective exposure plateau HR of 2.6
+solve.red(beta=log(2.63),s.val=6.5,e.val=2.6,half.in=5.85,half.out=5.85)
 }

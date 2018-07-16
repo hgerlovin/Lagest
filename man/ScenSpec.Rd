@@ -33,41 +33,32 @@ ScenSpec2(half = c(50, 100), st.dose = 1, baser = 0.1, OR = 1.5,
 \item{intlen}{Increment time to use. Default is 1 time unit.}
 
 \item{studyt}{Total study follow-up time. Default is \code{NULL} and will pull the last regimen stop time.}
-
-\item{\code{tStart1}...\code{tStartX}}{Columns indicating the time since starting the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to initiation and increments parallel with time following initiation.}
-
-\item{\code{tEnd1}...\code{tEndX}}{Columns indicating the time since discontinuing the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to start of regimen and while regimen is "on". Increments parallel to time following discontinuation.}
-
-\item{\code{time}}{Column for the study time at the observation.}
-
-\item{\code{currD}}{Column with value for the current regimen dose for the subject-time-specific observation.}
-
-\item{\code{everD}}{Column indicating whether any exposure has occurred as of (prior to and including) the subject-time-specific observation.}
-
-\item{\code{currC}}{Column with "true" effective exposure at the given time.}
-
-\item{\code{prob}}{Column with time-specific conditional logistic probability of event. This is the value used for assigning events during data generation - compared to random draw from Unif(0,1).}
-
-\item{\code{half}}{Input half-life value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
-
-\item{\code{OR}}{Input Odds Ratio value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
-
-\item{\code{baser}}{Input baseline prevalence value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
-
-\item{\code{st.dose}}{Input standard dose value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
-
-\item{\code{intlen}}{Input time increment value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
 }
 \value{
-Dataframe with time-incremented observations/rows. Columns include the input parameter values (half, OR, baser, st.dose, intlen), values for time, currD, everD, and values for the true effective exposure (currC) and probability of event (prob). Additionally, three columns per regimen reflect the exposure-specific dose, time since start, and time since end: DoseX, tStartX, tEndX.
-
-@param \code{Dose1}...\code{DoseX}	Columns indicating the overall doses for each regimen. Repeated throughout for computational ease.
+Dataframe with time-incremented observations/rows. Columns include the input parameter values (half, OR, baser, st.dose, intlen), values for time, currD, everD, and values for the true effective exposure (currC) and probability of event (prob). Additionally, three columns per regimen reflect the exposure-specific dose, time since start, and time since end: DoseX, tStartX, tEndX. The following describes the output columns for the data frame: 
+\describe{
+   \item{Dose1...DoseX}{Columns indicating the overall doses for each regimen. Repeated throughout for computational ease.}
+   \item{tStart1...tStartX}{Columns indicating the time since starting the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to initiation and increments parallel with time following initiation.}
+   \item{tEnd1...tEndX}{Columns indicating the time since discontinuing the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to start of regimen and while regimen is "on". Increments parallel to time following discontinuation.}
+   \item{time}{Column for the study time at the observation.}
+   \item{currD}{Column with value for the current regimen dose for the subject-time-specific observation.}
+   \item{everD}{Column indicating whether any exposure has occurred as of (prior to and including) the subject-time-specific observation.}
+   \item{currC}{Column with "true" effective exposure at the given time.}
+   \item{prob}{Column with time-specific conditional logistic probability of event. This is the value used for assigning events during data generation - compared to random draw from Unif(0,1).}
+   \item{half}{Input half-life value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
+   \item{OR}{Input Odds Ratio value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
+   \item{baser}{Input baseline prevalence value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
+   \item{st.dose}{Input standard dose value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
+   \item{intlen}{Input time increment value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
+}
 }
 \description{
-Generates an OPEE trajectory based on pre-specified inputs. Output dataframe can be used in DatScen and MultiScen.
+Generates an OPEE/TPEE trajectories based on pre-specified inputs. Output dataframe can be used in DatScen and MultiScen.
 }
 \section{Functions}{
 \itemize{
+\item \code{ScenSpec}: Generates an OPEE trajectory based on pre-specified inputs.
+
 \item \code{ScenSpec2}: Generates an TPEE trajectory based on pre-specified inputs. For single-value inputs of the \code{half} parameter, incline and decline are assumed to be the same.
 }}
 
