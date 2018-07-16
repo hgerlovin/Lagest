@@ -29,26 +29,35 @@ ScenSpec(half = 90, st.dose = 1, baser = 0.1, OR = 1.5, struct = 0,
 
 \item{studyt}{Total study follow-up time. Default is \code{NULL} and will pull the last regimen stop time.}
 
-\item{\code{Dose1}...\code{DoseX}}{Columns indicating the overall doses for each regimen. Repeated throughout for computational ease. 
-\code{tStart1}...\code{tStartX}    Columns indicating the time since starting the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to initiation and increments parallel with time following initiation.
-\code{tEnd1}...\code{tEndX}    Columns indicating the time since discontinuing the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to start of regimen and while regimen is "on". Increments parallel to time following discontinuation.
-\code{time}    Column for the study time at the observation.
-\code{currD}    Column with value for the current regimen dose for the subject-time-specific observation.
-\code{everD}    Column indicating whether any exposure has occurred as of (prior to and including) the subject-time-specific observation.
-\code{currC}    Column with "true" effective exposure at the given time.
-\code{prob}    Column with time-specific conditional logistic probability of event. This is the value used for assigning events during data generation - compared to random draw from Unif(0,1).
-\code{half}    Input half-life value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
-\code{OR}    Input Odds Ratio value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
-\code{baser}    Input baseline prevalence value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
-\code{st.dose}    Input standard dose value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
-\code{intlen}    Input time increment value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
+\item{\code{Dose1}...\code{DoseX}}{Columns indicating the overall doses for each regimen. Repeated throughout for computational ease.}
+
+\item{\code{tStart1}...\code{tStartX}}{Columns indicating the time since starting the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to initiation and increments parallel with time following initiation.}
+
+\item{\code{tEnd1}...\code{tEndX}}{Columns indicating the time since discontinuing the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to start of regimen and while regimen is "on". Increments parallel to time following discontinuation.}
+
+\item{\code{time}}{Column for the study time at the observation.}
+
+\item{\code{currD}}{Column with value for the current regimen dose for the subject-time-specific observation.}
+
+\item{\code{everD}}{Column indicating whether any exposure has occurred as of (prior to and including) the subject-time-specific observation.}
+
+\item{\code{currC}}{Column with "true" effective exposure at the given time.}
+
+\item{\code{prob}}{Column with time-specific conditional logistic probability of event. This is the value used for assigning events during data generation - compared to random draw from Unif(0,1).}
+
+\item{\code{half}}{Input half-life value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
+
+\item{\code{OR}}{Input Odds Ratio value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
+
+\item{\code{baser}}{Input baseline prevalence value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
+
+\item{\code{st.dose}}{Input standard dose value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
+
+\item{\code{intlen}}{Input time increment value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
 }
 \value{
 Outputs dataframe of study intervals with corresponding/useable dose regimen vectors, current dose vector.
 }
 \description{
 Reads in dose, start and end times, and half-life. Calculates concentration for inputs.
-}
-\examples{
-ScenSpec()
 }
