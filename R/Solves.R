@@ -9,16 +9,17 @@
 #' @param reduct Desired excess hazard reduction. For example, to determine the time to 50\% reduction in the hazard ratio for a specific individual use \code{reduct=0.5}.
 #' 
 #' @return Returns values for the estimated starting (time=0 at discontinuation) hazard ratio (HR), starting risk or log(HR), ending HR and log(HR), time required to return to the reduced HR, and the relative proportion of reduction from start to end time on both HR and log(HR) scales.
-#' 
-#' @param start.risk The starting log(HR) after \code{time.in} units-time of exposure prior to discontinuation.
-#' @param start.relrisk The starting HR after \code{time.in} units-time of exposure prior to discontinuation.
-#' @param time.needed  The calculated time needed to reduce the excess hazard to \code{reduct}. 
-#' @param end.risk The ending log(HR) for the individual following the \code{time.needed} units-time.
-#' @param end.relrisk The ending HR for the individual following the \code{time.needed} units-time.
-#' @param relrisk.red Proportion of reduction in excess hazard. Note that this returns the input \code{reduct} value. 
-#' @param risk.red Proportion of reduction in the log(HR) scale. 
-#' @param startEE Effective Exposure starting value based on the dosing scale with maximum HR at the value of \code{D} input parameter. 
-#' @param endEE Effective Exposure ending value that corresponds to the reduced excess hazard. Similarly, this is relative to the value of \code{D} input parameter.
+#' \describe{
+#'   \item{start.risk}{The starting log(HR) after \code{time.in} units-time of exposure prior to discontinuation.}
+#'   \item{start.relrisk}{The starting HR after \code{time.in} units-time of exposure prior to discontinuation.}
+#'   \item{time.needed}{The calculated time needed to reduce the excess hazard to \code{reduct}.}
+#'   \item{end.risk}{The ending log(HR) for the individual following the \code{time.needed} units-time.}
+#'   \item{end.relrisk}{The ending HR for the individual following the \code{time.needed} units-time.}
+#'   \item{relrisk.red}{Proportion of reduction in excess hazard. Note that this returns the input \code{reduct} value.}
+#'   \item{risk.red}{Proportion of reduction in the log(HR) scale. }
+#'   \item{startEE}{Effective Exposure starting value based on the dosing scale with maximum HR at the value of \code{D} input parameter.}
+#'   \item{endEE}{Effective Exposure ending value that corresponds to the reduced excess hazard. Similarly, this is relative to the value of \code{D} input parameter.}
+#' }
 #' @export
 #' @examples
 #' 
@@ -29,8 +30,6 @@
 #' ## Calculate the time to 50\% reduction in the HR for a 1 pack/day smoker of 30-years. Final model being used comes from results in Chapter 4 (OPEE Packs/Day Dosing in Full BWHS Sample).
 #' 
 #' solve.time(beta=log(2.63), D=1, half.in=5.85, half.out=5.85, time.in=30, reduct=0.5)
-
-
 solve.time<-function(beta,D,half.in,half.out,time.in,reduct){
   sEE<-D*(1-exp(-log(2)*time.in/half.in)) 
   s.val1<-beta*sEE# determine the Risk starting point
@@ -46,15 +45,11 @@ solve.time<-function(beta,D,half.in,half.out,time.in,reduct){
 }
 
 
-#' Time to reduction in excess hazard
-#'
-#' Calculates the time to \% reduction based on initial and end-point hazard ratios
-#' 
+#' @describeIn solve.time Determines time to reduction with given start and stop hazard ratios 
 #' @export
 #' @examples
 #' 
 #' solve.red(beta=log(2.63),s.val=6.5447956,e.val=2.5582798,half.in=5.85,half.out=5.85)
-
 solve.red<-function(beta,s.val,e.val,half.in,half.out){
   s.val1<-log(s.val) # determine the Risk starting point
   sEE<-s.val1/beta
