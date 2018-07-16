@@ -1,6 +1,6 @@
-#' Simplified version of constructing dose regimen vectors.
+#' OPEE/TPEE dataset creation
 #'
-#' Reads in dose, start and end times, and half-life. Calculates concentration for inputs.
+#' Generates an OPEE trajectory based on pre-specified inputs. Output dataframe can be used in DatScen and MultiScen.
 #' @param half One-parameter half-life for simulating the relative concentration/effective exposure, currC. Default assumes 90 time unit half-life.
 #' @param st.dose Relative units for dose plateau. Default assumes binary exposure.
 #' @param baser Overall prevalence input. Parameter feeds into the intercept beta via \eqn{log(baser\times(intlen/studyt))}. This beta is then used to calculate the subject-time-specific conditional logistic probability = \eqn{\dfrac{exp(beta0 + beta1*currC)}{(1 + exp(beta0 + beta1*currC))}}. Default is 10% prevalence of the outcome throughout the course of the study follow-up.
@@ -31,7 +31,6 @@
 #' @export
 #' 
 #' @example 
-#' 
 #' ScenSpec()
 
 
@@ -54,6 +53,9 @@ ScenSpec=function(half=90,st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec
   temp=cbind(half,OR,baser,st.dose,currC,prob,intlen,made)
   temp
 }
+
+#' @describeIn ScenSpec Generates an TPEE trajectory based on pre-specified inputs.
+#' @export
 
 ScenSpec2=function(half=c(50,100),st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec=c(0),tf.vec=c(900),intlen=1,studyt=NULL) {
   

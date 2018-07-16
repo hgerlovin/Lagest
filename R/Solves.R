@@ -1,37 +1,33 @@
 #' Time to reduction in excess hazard
 #'
-#' Calculates the time to % reduction in the excess hazard following discontinuation of an exposure.
+#' Calculates the time to \% reduction in the excess hazard following discontinuation of an exposure.
 #' @param beta Effect size coefficient (beta) from the model fitting results.
 #' @param D Exposure level prior to discontinuation
 #' @param half.in Incline half-life parameter if the resulting model selected was the two-parameter effective exposure model. For the one-parameter effective exposure model, use the same value for the \code{half.in} and \code{half.out} inputs.
 #' @param half.out Decline half-life parameter if the resulting model selected was the two-parameter effective exposure model. See \code{half.in} for how to handle OPEE framework.
 #' @param time.in Amount of time exposed prior to discontinuation. Value should exceed 1.
-#' @param reduct Desired excess hazard reduction. For example, to determine the time to 50% reduction in the hazard ratio for a specific individual use \code{reduct=0.5}.
+#' @param reduct Desired excess hazard reduction. For example, to determine the time to 50\% reduction in the hazard ratio for a specific individual use \code{reduct=0.5}.
+#' 
 #' @return Returns values for the estimated starting (time=0 at discontinuation) hazard ratio (HR), starting risk or log(HR), ending HR and log(HR), time required to return to the reduced HR, and the relative proportion of reduction from start to end time on both HR and log(HR) scales.
 #' 
-#' \code{start.risk} The starting log(HR) after \code{time.in} units-time of exposure prior to discontinuation.
-#' 
-#' \code{start.relrisk} The starting HR after \code{time.in} units-time of exposure prior to discontinuation.
-#' 
-#' \code{time.needed}  The calculated time needed to reduce the excess hazard to \code{reduct}. 
-#' 
-#' \code{end.risk} The ending log(HR) for the individual following the \code{time.needed} units-time.
-#' 
-#' \code{end.relrisk} The ending HR for the individual following the \code{time.needed} units-time.
-#' 
-#' \code{relrisk.red} Proportion of reduction in excess hazard. Note that this returns the input \code{reduct} value. 
-#'
-#' \code{risk.red} Proportion of reduction in the log(HR) scale. 
-#' 
-#' \code{startEE} Effective Exposure starting value based on the dosing scale with maximum HR at the value of \code{D} input parameter. 
-#' 
-#' \code{endEE} Effective Exposure ending value that corresponds to the reduced excess hazard. Similarly, this is relative to the value of \code{D} input parameter.
+#' @param start.risk The starting log(HR) after \code{time.in} units-time of exposure prior to discontinuation.
+#' @param start.relrisk The starting HR after \code{time.in} units-time of exposure prior to discontinuation.
+#' @param time.needed  The calculated time needed to reduce the excess hazard to \code{reduct}. 
+#' @param end.risk The ending log(HR) for the individual following the \code{time.needed} units-time.
+#' @param end.relrisk The ending HR for the individual following the \code{time.needed} units-time.
+#' @param relrisk.red Proportion of reduction in excess hazard. Note that this returns the input \code{reduct} value. 
+#' @param risk.red Proportion of reduction in the log(HR) scale. 
+#' @param startEE Effective Exposure starting value based on the dosing scale with maximum HR at the value of \code{D} input parameter. 
+#' @param endEE Effective Exposure ending value that corresponds to the reduced excess hazard. Similarly, this is relative to the value of \code{D} input parameter.
 #' @export
 #' @examples
-#' ## Calculate the time to 50% reduction in the HR for a 2 packs/day smoker of 30-years. Final model being used comes from results in Chapter 4 (OPEE Packs/Day Dosing in Full BWHS Sample).
+#' 
+#' ## Calculate the time to 50\% reduction in the HR for a 2 packs/day smoker of 30-years. Final model being used comes from results in Chapter 4 (OPEE Packs/Day Dosing in Full BWHS Sample).
+#' 
 #' solve.time(beta=log(2.63), D=2, half.in=5.85, half.out=5.85, time.in=30, reduct=0.5)
 #' 
-#' ## Calculate the time to 50% reduction in the HR for a 1 pack/day smoker of 30-years. Final model being used comes from results in Chapter 4 (OPEE Packs/Day Dosing in Full BWHS Sample).
+#' ## Calculate the time to 50\% reduction in the HR for a 1 pack/day smoker of 30-years. Final model being used comes from results in Chapter 4 (OPEE Packs/Day Dosing in Full BWHS Sample).
+#' 
 #' solve.time(beta=log(2.63), D=1, half.in=5.85, half.out=5.85, time.in=30, reduct=0.5)
 
 
