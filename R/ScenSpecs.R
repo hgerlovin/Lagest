@@ -29,10 +29,6 @@
 #' @param \code{intlen}	Input time increment value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.
 #' 
 #' @export
-#' 
-#' @example 
-#' ScenSpec()
-
 
 ScenSpec<-function(half=90,st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec=c(0),tf.vec=c(900),intlen=1,studyt=NULL) {
   
