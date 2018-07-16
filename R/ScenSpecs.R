@@ -1,10 +1,10 @@
 #' OPEE/TPEE dataset creation
 #'
 #' Generates an OPEE trajectory based on pre-specified inputs. Output dataframe can be used in DatScen and MultiScen.
-#' @param half One-parameter half-life for simulating the relative concentration/effective exposure, currC. Default assumes 90 time unit half-life.
+#' @param half Half-life parameter(s) for simulating the relative concentration/effective exposure, currC. Default assumes a single 90 time-unit half-life for the one-parameter model and the combination of 50, 100 for incline and decline time-units in the two-parameter system.
 #' @param st.dose Relative units for dose plateau. Default assumes binary exposure.
-#' @param baser Overall prevalence input. Parameter feeds into the intercept beta via \eqn{log(baser\times(intlen/studyt))}. This beta is then used to calculate the subject-time-specific conditional logistic probability = \eqn{\dfrac{exp(beta0 + beta1*currC)}{(1 + exp(beta0 + beta1*currC))}}. Default is 10% prevalence of the outcome throughout the course of the study follow-up.
-#' @param OR Proportional Odds/Hazard Ratio. Parameter feeds into the beta1 via ln(OR/st.dose). This beta is then used to calculate the subject-time-specific conditional logistic probability = \eqn{\dfrac{exp(beta0 + beta1*currC)}{(1 + exp(beta0 + beta1*currC))}}. Default assumes that steady state full exposure increases the odds of event 50%.
+#' @param baser Overall prevalence input. Parameter feeds into the intercept beta via \eqn{log(baser*(intlen/studyt))}. This beta is then used to calculate the subject-time-specific conditional logistic probability = \eqn{exp(beta0 + beta1*currC)/(1 + exp(beta0 + beta1*currC))}. Default is 10\% prevalence of the outcome throughout the course of the study follow-up.
+#' @param OR Proportional Odds/Hazard Ratio. Parameter feeds into the beta1 via \eqn{log(OR/st.dose)}. This beta is then used to calculate the subject-time-specific conditional logistic probability = \eqn{exp(beta0 + beta1*currC)/(1 + exp(beta0 + beta1*currC))}. Default assumes that steady state full exposure increases the odds of event 50\%.
 #' @param struct Structure indicator. If turned on (1), then additional regimen is added for time following discontinuation. Default is off (0), assuming that the total number of regimens is fixed and does not need additional follow-up.
 #' @param Cp.vec Vector of doses for the regimens. Default assumes the binary exposure plateau and that there is a single regimen of exposure (i.e. \code{Cp.vec=c(1)}). To have multiple exposures, include the same number of vector components in \code{Cp.vec}, \code{ts.vec}, and \code{tf.vec}.
 #' @param ts.vec Vector of start times for the regimens. Default assumes the exposure was started at time 0.
@@ -12,7 +12,7 @@
 #' @param intlen Increment time to use. Default is 1 time unit.
 #' @param studyt Total study follow-up time. Default is \code{NULL} and will pull the last regimen stop time.
 #' 
-#' @return Outputs dataframe of study intervals with corresponding/useable dose regimen vectors, current dose vector.
+#' @return Dataframe with time-incremented observations/rows. Columns include the input parameter values (half, OR, baser, st.dose, intlen), values for time, currD, everD, and values for the true effective exposure (currC) and probability of event (prob). Additionally, three columns per regimen reflect the exposure-specific dose, time since start, and time since end: DoseX, tStartX, tEndX.
 #' 
 #' @param \code{Dose1}...\code{DoseX}	Columns indicating the overall doses for each regimen. Repeated throughout for computational ease. 
 #' @param \code{tStart1}...\code{tStartX}	Columns indicating the time since starting the specific regimen -- depends on the point in the trajectory. i.e. Takes a value of 0 for times prior to initiation and increments parallel with time following initiation.
@@ -50,7 +50,7 @@ ScenSpec<-function(half=90,st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.ve
   temp
 }
 
-#' @describeIn ScenSpec Generates an TPEE trajectory based on pre-specified inputs.
+#' @describeIn ScenSpec Generates an TPEE trajectory based on pre-specified inputs. For single-value inputs of the \code{half} parameter, incline and decline are assumed to be the same. 
 #' @export
 
 ScenSpec2<-function(half=c(50,100),st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec=c(0),tf.vec=c(900),intlen=1,studyt=NULL) {
