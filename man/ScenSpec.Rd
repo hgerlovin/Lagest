@@ -14,13 +14,13 @@ ScenSpec2(half = c(50, 100), st.dose = 1, baser = 0.1, OR = 1.5,
   intlen = 1, studyt = NULL)
 }
 \arguments{
-\item{half}{One-parameter half-life for simulating the relative concentration/effective exposure, currC. Default assumes 90 time unit half-life.}
+\item{half}{Half-life parameter(s) for simulating the relative concentration/effective exposure, currC. Default assumes a single 90 time-unit half-life for the one-parameter model and the combination of 50, 100 for incline and decline time-units in the two-parameter system.}
 
 \item{st.dose}{Relative units for dose plateau. Default assumes binary exposure.}
 
-\item{baser}{Overall prevalence input. Parameter feeds into the intercept beta via \eqn{log(baser\times(intlen/studyt))}. This beta is then used to calculate the subject-time-specific conditional logistic probability = \eqn{\dfrac{exp(beta0 + beta1*currC)}{(1 + exp(beta0 + beta1*currC))}}. Default is 10% prevalence of the outcome throughout the course of the study follow-up.}
+\item{baser}{Overall prevalence input. Parameter feeds into the intercept beta via \eqn{log(baser*(intlen/studyt))}. This beta is then used to calculate the subject-time-specific conditional logistic probability = \eqn{exp(beta0 + beta1*currC)/(1 + exp(beta0 + beta1*currC))}. Default is 10\% prevalence of the outcome throughout the course of the study follow-up.}
 
-\item{OR}{Proportional Odds/Hazard Ratio. Parameter feeds into the beta1 via ln(OR/st.dose). This beta is then used to calculate the subject-time-specific conditional logistic probability = \eqn{\dfrac{exp(beta0 + beta1*currC)}{(1 + exp(beta0 + beta1*currC))}}. Default assumes that steady state full exposure increases the odds of event 50%.}
+\item{OR}{Proportional Odds/Hazard Ratio. Parameter feeds into the beta1 via \eqn{log(OR/st.dose)}. This beta is then used to calculate the subject-time-specific conditional logistic probability = \eqn{exp(beta0 + beta1*currC)/(1 + exp(beta0 + beta1*currC))}. Default assumes that steady state full exposure increases the odds of event 50\%.}
 
 \item{struct}{Structure indicator. If turned on (1), then additional regimen is added for time following discontinuation. Default is off (0), assuming that the total number of regimens is fixed and does not need additional follow-up.}
 
@@ -61,13 +61,13 @@ ScenSpec2(half = c(50, 100), st.dose = 1, baser = 0.1, OR = 1.5,
 \item{\code{intlen}}{Input time increment value, repeated down the column for all time-points. Retained for simulation purposes and later discarded.}
 }
 \value{
-Outputs dataframe of study intervals with corresponding/useable dose regimen vectors, current dose vector.
+Dataframe with time-incremented observations/rows. Columns include the input parameter values (half, OR, baser, st.dose, intlen), values for time, currD, everD, and values for the true effective exposure (currC) and probability of event (prob). Additionally, three columns per regimen reflect the exposure-specific dose, time since start, and time since end: DoseX, tStartX, tEndX.
 }
 \description{
 Generates an OPEE trajectory based on pre-specified inputs. Output dataframe can be used in DatScen and MultiScen.
 }
 \section{Functions}{
 \itemize{
-\item \code{ScenSpec2}: Generates an TPEE trajectory based on pre-specified inputs.
+\item \code{ScenSpec2}: Generates an TPEE trajectory based on pre-specified inputs. For single-value inputs of the \code{half} parameter, incline and decline are assumed to be the same.
 }}
 

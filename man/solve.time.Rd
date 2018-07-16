@@ -4,7 +4,7 @@
 \alias{solve.time}
 \title{Time to reduction in excess hazard}
 \usage{
-\method{solve}{time}(beta, D, half.in, half.out, time.in, reduct)
+solve.time(beta, D, half.in, half.out, time.in, reduct)
 }
 \arguments{
 \item{beta}{Effect size coefficient (beta) from the model fitting results.}
