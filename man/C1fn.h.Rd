@@ -15,6 +15,9 @@ C1fn.h(d, s, e, h)
 
 \item{h}{half-life parameter}
 }
+\value{
+Outputs a numeric vector of values for concentration that is equal in length to the number of rows/observations in the dataframe \code{dat}.
+}
 \description{
 Reads in dose, start and end times, and half-life. Calculates concentration for inputs.
 }
