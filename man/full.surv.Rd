@@ -7,10 +7,10 @@
 full.surv(datin)
 }
 \arguments{
-\item{datin}{A dataframe that must have "time", "tstop" and "event" columns with data points for all subjects at all event times.}
+\item{datin}{Input dataframe with one observation for each subject at each study time point. Must have "time", "tstop" and "event" columns with data points for all subjects at all event times.}
 }
 \value{
-Outputs full dataset at event times
+One observation per subject per event time. New column, tstop, takes the value of the event time, while the "time" column reflects the previous event time. I.e. Assumes right-censored times such that "tstop" values correspond to "time" from the original input dataframe and the revised "time" column reflects the preceding event time.
 }
 \description{
 Prepare dataset for survival analysis

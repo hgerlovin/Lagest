@@ -234,7 +234,7 @@ find.2half=function(h0=NULL,k0=NULL,modtype="cph",datter,stdose=1,covar=NULL,str
     
     newfits<-as.data.frame(cbind(hnew,llgrid0=llfit,beta1.0=betafit))
     
-    iterpath<-suppressWarnings(bind_rows(hpull,newfits))
+    iterpath<-suppressWarnings(dplyr::bind_rows(hpull,newfits))
     iterpath<-iterpath[order(iterpath$id),]
     rownames(iterpath)<-NULL
     if(length(printer)>0) {
@@ -307,7 +307,7 @@ find.2half=function(h0=NULL,k0=NULL,modtype="cph",datter,stdose=1,covar=NULL,str
   newfits<-as.data.frame(cbind(hnew,llgrid0=llfit,beta1.0=betafit))
   # index2<-as.numeric(newfits$id[newfits$llgrid0==max(newfits$llgrid0)])
   
-  iterpath<-suppressWarnings(bind_rows(hpull,newfits))
+  iterpath<-suppressWarnings(dplyr::bind_rows(hpull,newfits))
   iterpath<-iterpath[order(iterpath$id),]
   rownames(iterpath)<-NULL
   if(length(printer)>0) {
@@ -425,7 +425,7 @@ find.2half=function(h0=NULL,k0=NULL,modtype="cph",datter,stdose=1,covar=NULL,str
     
     newfits<-as.data.frame(cbind(hnew,llgrid0=llfit,beta1.0=betafit))
     
-    iterpath<-suppressWarnings(bind_rows(hpull,newfits))
+    iterpath<-suppressWarnings(dplyr::bind_rows(hpull,newfits))
     iterpath<-iterpath[order(iterpath$id),]
     rownames(iterpath)<-NULL
     if(length(printer)>0) {

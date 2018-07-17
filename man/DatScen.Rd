@@ -8,13 +8,13 @@
 \usage{
 DatScen(scendat = Scen1, repper = 10000, seedno = 25)
 
-DatSpec(repper = 10000, half = 100, st.dose = 20, baser = 0.1,
-  OR = 1.5, struct = 0, Cp.vec = c(20), ts.vec = c(0),
-  tf.vec = c(1000), intlen = 1, studyt = NULL, seedno = 25)
+DatSpec(repper = 10000, half = 90, st.dose = 1, baser = 0.1, OR = 1.5,
+  struct = 0, Cp.vec = c(1), ts.vec = c(0), tf.vec = c(900),
+  intlen = 1, studyt = NULL, seedno = 25)
 
-DatSpec2(repper = 10000, half = 100, st.dose = 20, baser = 0.1,
-  OR = 1.5, struct = 0, Cp.vec = c(20), ts.vec = c(0),
-  tf.vec = c(1000), intlen = 1, studyt = NULL, seedno = 25)
+DatSpec2(repper = 10000, half = c(50, 100), st.dose = 1, baser = 0.1,
+  OR = 1.5, struct = 0, Cp.vec = c(1), ts.vec = c(0), tf.vec = c(900),
+  intlen = 1, studyt = NULL, seedno = 25)
 }
 \arguments{
 \item{scendat}{Pre-defined scenario to use for simulating subjects (only in DatScen() function). Default assumes that a Scen1 dataframe exists and should be used.}
