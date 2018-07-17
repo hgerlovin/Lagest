@@ -2,9 +2,13 @@
 % Please edit documentation in R/MultiScen.R
 \name{MultiScen}
 \alias{MultiScen}
+\alias{makeDat.cph}
 \title{Simulate multiple-scenarios dataset}
 \usage{
 MultiScen(combo = list(scen1, scen2, scen3), nperscen = 5000, seedno = 25)
+
+makeDat.cph(combo = list(base1.up, base1.down, base1.ctrl), nperscen = 5000,
+  seedno = seedset)
 }
 \arguments{
 \item{combo}{Pre-defined scenarios to use for simulating subjects. Must be input as a list of ScenSpec/ScenSpec2 output objects.}
@@ -41,6 +45,11 @@ Specifics regarding the output dataframe columns (colNames):
 \description{
 Generate simulated datasets based on multiple pre-specified scenarios. Should only use scenarios generated using the same underlying effective exposure structure (same number of parameters and values).
 }
+\section{Functions}{
+\itemize{
+\item \code{makeDat.cph}: Used for parallel processing in simulations to make a survival-based dataset following the MultiScen() function. This step removes all time-point observations that do not have a corresponding event - i.e. Only unique event-times are retained. This combines the MultiScen() and full.surv() functions to output a single dataset for simulation purposes.
+}}
+
 \seealso{
 ScenSpec, ScenSpec2, DatSpec, DatSpec2, DatScen
 }

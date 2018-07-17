@@ -7,8 +7,6 @@
 #' @inherit DatScen return
 #' @seealso ScenSpec, ScenSpec2, DatSpec, DatSpec2, DatScen
 #' @export
-# Reads in pre-created scenarios, set number of subjects per scenario, set random seed
-# Creates dataset for nperscen subjects for each scenario in the combo list using given seed
 MultiScen <- function(combo=list(scen1,scen2,scen3), nperscen=5000, seedno=25) {
   scen.num<-length(combo)
   if (scen.num==1) return(print("ERROR: Only one scenario specified, use DatScen() function"))  
@@ -59,4 +57,38 @@ MultiScen <- function(combo=list(scen1,scen2,scen3), nperscen=5000, seedno=25) {
   rownames(fin.dat)=NULL
   
   return(fin.dat)
+}
+
+#' @describeIn MultiScen Used for parallel processing in simulations to make a survival-based dataset following the MultiScen() function. This step removes all time-point observations that do not have a corresponding event - i.e. Only unique event-times are retained. This combines the MultiScen() and full.surv() functions to output a single dataset for simulation purposes.
+#' @export
+makeDat.cph<-function(combo=list(base1.up,base1.down,base1.ctrl),nperscen=5000,seedno=seedset){
+  fullbase1<-MultiScen(combo=combo,nperscen=nperscen,seedno=seedno) 
+  fullbase1<-fullbase1[order(fullbase1$time,fullbase1$ID),]
+  ts<-unique(sort(fullbase1$time[fullbase1$event==TRUE]))
+  
+  studyt<-max(fullbase1$time)
+  if(ts[1]==0) ts<-ts[-1]
+  if(ts[length(ts)]!=studyt) ts<-c(ts,studyt)
+  
+  survbase1<-fullbase1[fullbase1$time %in% ts,]
+  rm(fullbase1)
+  
+  survbase1$tstop<-survbase1$time
+  survbase1<-survbase1[,!(names(survbase1) %in% c("time","intlen"))]
+  survbase1<-survbase1[order(survbase1$tstop,survbase1$ID),]
+  
+  loc<-match(ts,survbase1$tstop)
+  loc1<-loc[-1]
+  loc2<-c(loc[-c(1,2)]-1,length(survbase1$tstop))
+  rm(loc)
+  repl<-loc2-loc1+1
+  tnew<-rep(ts[-length(ts)], times=repl)
+  repz<-as.numeric(length(survbase1$tstop)-length(tnew))
+  survbase1$time<-c(rep(0,repz),tnew)
+  rm(tnew,repz,ts,loc1,loc2,repl,studyt)
+  
+  survbase1<-survbase1[!is.na(survbase1$tstop),]
+  
+  survbase1<-survbase1[order(survbase1$time,survbase1$ID),]
+  return(survbase1)
 }
