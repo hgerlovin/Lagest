@@ -19,7 +19,7 @@
 #'    \item{Out.95L and Out.95U}{Lower and Upper bounds, respectively, for decline half-life parameter based on 95\% normal approximation using hessian-derived standard errors. Returns NA for OPEE model estimation.}
 #' }
 #'    
-#' @describeIn BetaH.SEcph For calculating the Hessian-derived standard errors following the OPEE algorithm.
+#' @describeIn HessCPH For calculating the Hessian-derived standard errors following the OPEE algorithm.
 #' @export
 BetaH.SEcph<-function(datter,t1,t2,case,cv,s,h,stdose){
   Clarge<-CTfun.h(thalf=h,dat=datter)
@@ -74,7 +74,7 @@ BetaH.SEcph<-function(datter,t1,t2,case,cv,s,h,stdose){
   return(c(Beta1.HSE=round(Beta1.HSE,4),Ratio.H95L=round(Ratio.H95L,4),Ratio.H95U=round(Ratio.H95U,4),In.HSE=round(In.HSE,3),In.95L=round(In.95L,2),In.95U=round(In.95U,2)))
 }
 
-#' @describeIn BetaH.SEcph For calculating the Hessian-derived standard errors following the TPEE algorithm.
+#' @describeIn HessCPH For calculating the Hessian-derived standard errors following the TPEE algorithm.
 #' @export
 Beta2H.SEcph<-function(datter,t1,t2,case,cv,s,hin,hout,stdose){
   Clarge<-CTfun2.h(thalf=c(hin,hout),dat=datter)

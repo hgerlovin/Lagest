@@ -16,9 +16,9 @@ C1.new(d, s, e, h1, h2)
 
 \item{e}{time since end tEndX}
 
-\item{h}{half-life parameter (for use with C1fn.h() only)}
+\item{h}{half-life parameter for OPEE calculation}
 
-\item{h1, h2}{half-life parameters for incline and decline, respectively. For use with C1.new() only.}
+\item{h1, h2}{half-life parameters for incline and decline, respectively}
 }
 \value{
 Outputs a single value for effective exposure concentration.

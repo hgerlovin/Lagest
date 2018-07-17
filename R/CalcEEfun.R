@@ -4,16 +4,16 @@
 #' @param d dose/concentration value DoseX
 #' @param s time since start tStartX
 #' @param e time since end tEndX
-#' @param h half-life parameter (for use with C1fn.h() only)
-#' @param h1,h2 half-life parameters for incline and decline, respectively. For use with C1.new() only.
+#' @param h half-life parameter for OPEE calculation
+#' @param h1,h2 half-life parameters for incline and decline, respectively
 #' @return Outputs a single value for effective exposure concentration.
-#' @describeIn C1fn.h Uses the one-parameter specification.
+#' @describeIn rawEEcalc Uses the one-parameter specification.
 ##' @export
 C1fn.h=function(d,s,e,h){
   return(d*(exp(-log(2)*e/h)-exp(-log(2)*s/h)))
 }
 
-#' @describeIn C1fn.h Allows for two differing half-lives and calculates the effective exposure concentration based on incline and decline parameters.
+#' @describeIn rawEEcalc Allows for two differing half-lives and calculates the effective exposure concentration based on incline and decline parameters.
 #' @export
 C1.new<-function(d,s,e,h1,h2){
   return(d*(1-exp(-log(2)*(s-e)/h1))*exp(-log(2)*e/h2))
@@ -25,7 +25,7 @@ C1.new<-function(d,s,e,h1,h2){
 #' @param thalf Assumed half-life for the OPEE calculation. Default is NULL. For the two parameter model, thalf must be input as a two-value vector with the incline half-life listed first.
 #' @param dat Dataset with three columns per exposure event/regimen following the naming conventions for X total regimens: Dose1--DoseX, tStart1--tStartX, tEnd1--tEndX
 #' @return Outputs a single vector of effective exposure concentrations for all observations in the dataset (should match the event vector length).
-#' @describeIn C1fun.h Uses the one-parameter specification to calculated a total effective exposure for a given observation at time t. Based on sum of C1fn.h().
+#' @describeIn fullEEcalc Uses the one-parameter specification to calculated a total effective exposure for a given observation at time t. Based on sum of C1fn.h().
 #' @export
 C1fun.h=function(thalf=NULL,dat){
   Ntimes=length(grep("^Dose",names(dat)))
@@ -38,7 +38,7 @@ C1fun.h=function(thalf=NULL,dat){
   return(Conc)
 }
 
-#' @describeIn C1fun.h Uses the two-parameter specification to calculated a total effective exposure for a given subject at time t. Uses C1.new() instead of C1fn.h().
+#' @describeIn fullEEcalc Uses the two-parameter specification to calculated a total effective exposure for a given subject at time t. Uses C1.new() instead of C1fn.h().
 #' @export
 C1fun.2h=function(thalf=NULL,dat){
   out<-list()

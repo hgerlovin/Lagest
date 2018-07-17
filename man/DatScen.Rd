@@ -64,8 +64,8 @@ Specifics regarding the output dataframe columns (colNames):
    \item{st.dose}{Input standard dose value, repeated down the column for all time-points.}
    \item{intlen}{Input time increment value, repeated down the column for all time-points.}
    \item{event}{Column taking value of 1 for subject-time-specific events and 0 otherwise.}
-   \item{ID}{Subject identifier. Increments from 1 to input value "repper". Dataframe sorted by ID and then time.}
-   \item{scen.num}{Scenario number. Takes value 1 -- Redundant and not used.}
+   \item{ID}{Subject identifier. For DatScen() -Increments from 1 to input value "repper". Dataframe sorted by ID and then time. For MultiScen() - Increments from 1 to total(nperscen). If one value is used for input to "nperscen", such as 5000, the IDs for subjects in scenario 1 will range from 1 to 5000, scenario 2 from 5001 to 10000, and scenario 3 from 10001 to 15000. For nperscen=c(5000,5000,2000), the IDs for scenario 3 would range from 10001 to 12000. Dataframe sorted by ID and then time.}
+   \item{scen.num}{Scenario number. Not particularly useful in output from DatScen(). For MultiScen() only - Subjects generated in the order of the scenario specification -- this means that changing the order in "combo" would alter the RNG matrix comparisons.}
 }
 }
 \description{
