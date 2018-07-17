@@ -2,9 +2,12 @@
 % Please edit documentation in R/CalcEEfun.R
 \name{C1fn.h}
 \alias{C1fn.h}
-\title{Basic OPEE Calculation}
+\alias{C1.new}
+\title{Basic OPEE/TPEE Calculation}
 \usage{
 C1fn.h(d, s, e, h)
+
+C1.new(d, s, e, h1, h2)
 }
 \arguments{
 \item{d}{dose/concentration value DoseX}
@@ -14,13 +17,19 @@ C1fn.h(d, s, e, h)
 \item{e}{time since end tEndX}
 
 \item{h}{half-life parameter}
+
+\item{h1, h2}{half-life parameters for incline and decline, respectively}
 }
 \value{
-Outputs a numeric vector of values for concentration that is equal in length to the number of rows/observations in the dataframe \code{dat}.
+Outputs a single value for effective exposure concentration.
 }
 \description{
-Reads in dose, start and end times, and half-life. Calculates concentration for inputs.
+Reads in dose, start and end times, and half-life (or half-lives). Calculates concentration for inputs.
 }
-\examples{
-C1fn.h()
-}
+\section{Functions}{
+\itemize{
+\item \code{C1fn.h}: Uses the one-parameter specification.
+
+\item \code{C1.new}: Allows for two differing half-lives and calculates the effective exposure concentration based on incline and decline parameters.
+}}
+

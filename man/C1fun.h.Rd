@@ -2,18 +2,28 @@
 % Please edit documentation in R/CalcEEfun.R
 \name{C1fun.h}
 \alias{C1fun.h}
-\title{OPEE Calculation across dataset subjects and regimens}
+\alias{C1fun.2h}
+\title{OPEE/TPEE Calculation across dataset subjects and regimens}
 \usage{
 C1fun.h(thalf = NULL, dat)
+
+C1fun.2h(thalf = NULL, dat)
 }
 \arguments{
-\item{thalf}{Assumed half-life for the OPEE calculation. Default is NULL.}
+\item{thalf}{Assumed half-life for the OPEE calculation. Default is NULL. For the two parameter model, thalf must be input as a two-value vector with the incline half-life listed first.}
 
 \item{dat}{Dataset with three columns per exposure event/regimen following the naming conventions for X total regimens: Dose1--DoseX, tStart1--tStartX, tEnd1--tEndX}
 }
+\value{
+Outputs a single vector of effective exposure concentrations for all observations in the dataset (should match the event vector length).
+}
 \description{
-Reads in dataset and input half-life. Uses lapply and C1fn.h to calculate concentration for each observation for each regimen given in the dataset. Sums each dose for each subject at each time point. Outputs vector of concentrations for all observations in the dataset (should match the event vector length).
+Reads in dataset and input half-life. Uses lapply and individual effective exposure calculation method to determine the total effective exposure for each observation for each regimen given in the dataset. Sums each dose for each subject at each time point.
 }
-\examples{
-C1fun.h()
-}
+\section{Functions}{
+\itemize{
+\item \code{C1fun.h}: Uses the one-parameter specification to calculated a total effective exposure for a given observation at time t. Based on sum of C1fn.h().
+
+\item \code{C1fun.2h}: Uses the two-parameter specification to calculated a total effective exposure for a given subject at time t. Uses C1.new() instead of C1fn.h().
+}}
+
