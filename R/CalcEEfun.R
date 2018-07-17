@@ -4,8 +4,8 @@
 #' @param d dose/concentration value DoseX
 #' @param s time since start tStartX
 #' @param e time since end tEndX
-#' @param h half-life parameter
-#' @param h1,h2 half-life parameters for incline and decline, respectively
+#' @param h half-life parameter (for use with C1fn.h() only)
+#' @param h1,h2 half-life parameters for incline and decline, respectively. For use with C1.new() only.
 #' @return Outputs a single value for effective exposure concentration.
 #' @describeIn C1fn.h Uses the one-parameter specification.
 ##' @export

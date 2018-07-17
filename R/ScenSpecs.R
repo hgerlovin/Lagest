@@ -1,6 +1,6 @@
-#' OPEE/TPEE dataset creation
+#' OPEE/TPEE regimen specifications
 #'
-#' Generates an OPEE/TPEE trajectories based on pre-specified inputs. Output dataframe can be used in DatScen and MultiScen.
+#' Generates an OPEE/TPEE trajectories based on pre-specified inputs. Outputs dataframe with baseline effective exposure trajectories, probabilities of event, and simulation characteristics. Can be used to feed into DatScen and MultiScen 
 #' @param half Half-life parameter(s) for simulating the relative concentration/effective exposure, currC. Default assumes a single 90 time-unit half-life for the one-parameter model and the combination of 50, 100 for incline and decline time-units in the two-parameter system.
 #' @param st.dose Relative units for dose plateau. Default assumes binary exposure.
 #' @param baser Overall prevalence input. Parameter feeds into the intercept beta via \eqn{log(baser*(intlen/studyt))}. This beta is then used to calculate the subject-time-specific conditional logistic probability = \eqn{exp(beta0 + beta1*currC)/(1 + exp(beta0 + beta1*currC))}. Default is 10\% prevalence of the outcome throughout the course of the study follow-up.
@@ -30,6 +30,7 @@
 #' }
 #' 
 #' @describeIn ScenSpec Generates an OPEE trajectory based on pre-specified inputs.
+#' @seealso DatSpec, DatSpec2, DatScen, MultiScen
 #' @export
 ScenSpec<-function(half=90,st.dose=1,baser=0.1,OR=1.5,struct=0,Cp.vec=c(1),ts.vec=c(0),tf.vec=c(900),intlen=1,studyt=NULL) {
   
